@@ -1,0 +1,3 @@
+# Ignore ios and android folders
+ios/
+android/
