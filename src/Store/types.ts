@@ -27,11 +27,17 @@ export type User = {
   email: string
 }
 
-interface ExpensesMap {
+interface Expenses {
   [key: string]: Expense
 }
 
 export type ExpensesState = {
-  data: ExpensesMap
+  data: Expenses
+  ui: {
+    isFetching: boolean
+    isUpdating: boolean
+    isUploading: boolean
+    errorMessage: string
+  }
   total: number
 }

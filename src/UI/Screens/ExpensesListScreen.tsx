@@ -108,7 +108,7 @@ export function mapStateToProps({ expenses }: StoreState) {
 }
 
 export function mapDispatchToProps(
-  dispatch: Dispatch<actions.ExpensesRequestAction>
+  dispatch: Dispatch<actions.ExpensesActionType>
 ) {
   return {
     fetchExpenses: (limit, offset) =>

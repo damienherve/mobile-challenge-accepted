@@ -60,7 +60,7 @@ export interface AddReceiptFailureAction {
 export function fetchExpenses(
   limit?: number,
   offset?: number
-): ExpensesRequestAction {
+): ExpensesActionType {
   return {
     type: constants.FETCH_EXPENSES_REQUEST,
     payload: {
@@ -72,7 +72,7 @@ export function fetchExpenses(
 
 export function fetchExpensesSuccess(
   payload: FetchExpensesData
-): ExpensesResponseAction {
+): ExpensesActionType {
   return {
     type: constants.FETCH_EXPENSES_SUCCESS,
     payload
@@ -81,17 +81,14 @@ export function fetchExpensesSuccess(
 
 export function fetchExpensesFailure(
   errorMessage?: string
-): ExpensesResponseAction {
+): ExpensesActionType {
   return {
     type: constants.FETCH_EXPENSES_FAILURE,
     errorMessage
   }
 }
 
-export function updateComment(
-  id: string,
-  comment: string
-): ExpensesRequestAction {
+export function updateComment(id: string, comment: string): ExpensesActionType {
   return {
     type: constants.UPDATE_COMMENT_REQUEST,
     payload: {
@@ -101,7 +98,7 @@ export function updateComment(
   }
 }
 
-export function updateCommentSuccess(expense: Expense): ExpensesResponseAction {
+export function updateCommentSuccess(expense: Expense): ExpensesActionType {
   return {
     type: constants.UPDATE_COMMENT_SUCCESS,
     expense
@@ -110,17 +107,14 @@ export function updateCommentSuccess(expense: Expense): ExpensesResponseAction {
 
 export function updateCommentFailure(
   errorMessage?: string
-): ExpensesResponseAction {
+): ExpensesActionType {
   return {
     type: constants.UPDATE_COMMENT_FAILURE,
     errorMessage
   }
 }
 
-export function addReceipt(
-  id: string,
-  receiptUri: string
-): ExpensesRequestAction {
+export function addReceipt(id: string, receiptUri: string): ExpensesActionType {
   return {
     type: constants.ADD_RECEIPT_REQUEST,
     payload: {
@@ -130,28 +124,24 @@ export function addReceipt(
   }
 }
 
-export function addReceiptSuccess(expense: Expense): ExpensesResponseAction {
+export function addReceiptSuccess(expense: Expense): ExpensesActionType {
   return {
     type: constants.ADD_RECEIPT_SUCCESS,
     expense
   }
 }
 
-export function addReceiptFailure(
-  errorMessage?: string
-): ExpensesResponseAction {
+export function addReceiptFailure(errorMessage?: string): ExpensesActionType {
   return {
     type: constants.ADD_RECEIPT_FAILURE,
     errorMessage
   }
 }
 
-export type ExpensesRequestAction =
+export type ExpensesActionType =
   | FetchExpensesRequestAction
   | UpdateCommentRequestAction
   | AddReceiptRequestAction
-
-export type ExpensesResponseAction =
   | FetchExpensesSuccessAction
   | FetchExpensesFailureAction
   | UpdateCommentSuccessAction
