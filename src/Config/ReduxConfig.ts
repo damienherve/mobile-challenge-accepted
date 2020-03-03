@@ -6,16 +6,16 @@ import Reactotron from './ReactotronConfig'
 
 // Reactotron
 const sagaMiddleware = createSagaMiddleware({
-    sagaMonitor: Reactotron.createSagaMonitor()
+  sagaMonitor: Reactotron.createSagaMonitor()
 })
 
 let middlewares = compose(
-    applyMiddleware(sagaMiddleware)
-    // Add other middlewares here if needed
+  applyMiddleware(sagaMiddleware)
+  // Add other middlewares here if needed
 )
 
 if (__DEV__ && Reactotron.createEnhancer) {
-    middlewares = compose(middlewares, Reactotron.createEnhancer())
+  middlewares = compose(middlewares, Reactotron.createEnhancer())
 }
 
 export const store = createStore(rootReducer, middlewares)

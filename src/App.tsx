@@ -18,13 +18,13 @@ import 'react-native-gesture-handler'
 import '@Config/ReactotronConfig'
 
 export default class App extends React.Component {
-    render() {
-        return (
-            <Provider store={store}>
-                <NavigationContainer>
-                    <AppStack />
-                </NavigationContainer>
-            </Provider>
-        )
-    }
+  render() {
+    return (
+      <Provider store={store}>
+        <NavigationContainer>
+          <AppStack />
+        </NavigationContainer>
+      </Provider>
+    )
+  }
 }

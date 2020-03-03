@@ -1,4 +1,4 @@
 export type RootStackParams = {
-    Expenses: undefined
-    ExpenseDetail: { expenseId: string }
+  Expenses: undefined
+  ExpenseDetail: { expenseId: string }
 }

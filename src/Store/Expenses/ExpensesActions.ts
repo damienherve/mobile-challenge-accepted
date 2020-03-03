@@ -1,158 +1,160 @@
 import { Expense } from '../types'
 import { FetchExpensesData } from '../../APIs/ExpensesApi'
 import * as constants from './constants'
-import { Image } from 'react-native'
 
 export interface FetchExpensesRequestAction {
-    type: typeof constants.FETCH_EXPENSES_REQUEST
-    payload: {
-        limit?: number
-        offset?: number
-    }
+  type: typeof constants.FETCH_EXPENSES_REQUEST
+  payload: {
+    limit?: number
+    offset?: number
+  }
 }
 
 export interface FetchExpensesSuccessAction {
-    type: typeof constants.FETCH_EXPENSES_SUCCESS
-    payload: FetchExpensesData
+  type: typeof constants.FETCH_EXPENSES_SUCCESS
+  payload: FetchExpensesData
 }
 
 export interface FetchExpensesFailureAction {
-    type: typeof constants.FETCH_EXPENSES_FAILURE
-    errorMessage?: string
+  type: typeof constants.FETCH_EXPENSES_FAILURE
+  errorMessage?: string
 }
 
 export interface UpdateCommentRequestAction {
-    type: typeof constants.UPDATE_COMMENT_REQUEST
-    payload: {
-        id: string
-        comment: string
-    }
+  type: typeof constants.UPDATE_COMMENT_REQUEST
+  payload: {
+    id: string
+    comment: string
+  }
 }
 
 export interface UpdateCommentSuccessAction {
-    type: typeof constants.UPDATE_COMMENT_SUCCESS
-    expense: Expense
+  type: typeof constants.UPDATE_COMMENT_SUCCESS
+  expense: Expense
 }
 
 export interface UpdateCommentFailureAction {
-    type: typeof constants.UPDATE_COMMENT_FAILURE
-    errorMessage?: string
+  type: typeof constants.UPDATE_COMMENT_FAILURE
+  errorMessage?: string
 }
 
 export interface AddReceiptRequestAction {
-    type: typeof constants.ADD_RECEIPT_REQUEST
-    payload: {
-        id: string
-        receipt: Image
-    }
+  type: typeof constants.ADD_RECEIPT_REQUEST
+  payload: {
+    id: string
+    receiptUri: string
+  }
 }
 
 export interface AddReceiptSuccessAction {
-    type: typeof constants.ADD_RECEIPT_SUCCESS
-    expense: Expense
+  type: typeof constants.ADD_RECEIPT_SUCCESS
+  expense: Expense
 }
 
 export interface AddReceiptFailureAction {
-    type: typeof constants.ADD_RECEIPT_FAILURE
-    errorMessage?: string
+  type: typeof constants.ADD_RECEIPT_FAILURE
+  errorMessage?: string
 }
 
 // Action Definitions
 export function fetchExpenses(
-    limit?: number,
-    offset?: number
+  limit?: number,
+  offset?: number
 ): ExpensesRequestAction {
-    return {
-        type: constants.FETCH_EXPENSES_REQUEST,
-        payload: {
-            limit,
-            offset
-        }
+  return {
+    type: constants.FETCH_EXPENSES_REQUEST,
+    payload: {
+      limit,
+      offset
     }
+  }
 }
 
 export function fetchExpensesSuccess(
-    payload: FetchExpensesData
+  payload: FetchExpensesData
 ): ExpensesResponseAction {
-    return {
-        type: constants.FETCH_EXPENSES_SUCCESS,
-        payload
-    }
+  return {
+    type: constants.FETCH_EXPENSES_SUCCESS,
+    payload
+  }
 }
 
 export function fetchExpensesFailure(
-    errorMessage?: string
+  errorMessage?: string
 ): ExpensesResponseAction {
-    return {
-        type: constants.FETCH_EXPENSES_FAILURE,
-        errorMessage
-    }
+  return {
+    type: constants.FETCH_EXPENSES_FAILURE,
+    errorMessage
+  }
 }
 
 export function updateComment(
-    id: string,
-    comment: string
+  id: string,
+  comment: string
 ): ExpensesRequestAction {
-    return {
-        type: constants.UPDATE_COMMENT_REQUEST,
-        payload: {
-            id,
-            comment
-        }
+  return {
+    type: constants.UPDATE_COMMENT_REQUEST,
+    payload: {
+      id,
+      comment
     }
+  }
 }
 
 export function updateCommentSuccess(expense: Expense): ExpensesResponseAction {
-    return {
-        type: constants.UPDATE_COMMENT_SUCCESS,
-        expense
-    }
+  return {
+    type: constants.UPDATE_COMMENT_SUCCESS,
+    expense
+  }
 }
 
 export function updateCommentFailure(
-    errorMessage?: string
+  errorMessage?: string
 ): ExpensesResponseAction {
-    return {
-        type: constants.UPDATE_COMMENT_FAILURE,
-        errorMessage
-    }
+  return {
+    type: constants.UPDATE_COMMENT_FAILURE,
+    errorMessage
+  }
 }
 
-export function addReceipt(id: string, receipt: Image): ExpensesRequestAction {
-    return {
-        type: constants.ADD_RECEIPT_REQUEST,
-        payload: {
-            id,
-            receipt
-        }
+export function addReceipt(
+  id: string,
+  receiptUri: string
+): ExpensesRequestAction {
+  return {
+    type: constants.ADD_RECEIPT_REQUEST,
+    payload: {
+      id,
+      receiptUri
     }
+  }
 }
 
 export function addReceiptSuccess(expense: Expense): ExpensesResponseAction {
-    return {
-        type: constants.ADD_RECEIPT_SUCCESS,
-        expense
-    }
+  return {
+    type: constants.ADD_RECEIPT_SUCCESS,
+    expense
+  }
 }
 
 export function addReceiptFailure(
-    errorMessage?: string
+  errorMessage?: string
 ): ExpensesResponseAction {
-    return {
-        type: constants.ADD_RECEIPT_FAILURE,
-        errorMessage
-    }
+  return {
+    type: constants.ADD_RECEIPT_FAILURE,
+    errorMessage
+  }
 }
 
 export type ExpensesRequestAction =
-    | FetchExpensesRequestAction
-    | UpdateCommentRequestAction
-    | AddReceiptRequestAction
+  | FetchExpensesRequestAction
+  | UpdateCommentRequestAction
+  | AddReceiptRequestAction
 
 export type ExpensesResponseAction =
-    | FetchExpensesSuccessAction
-    | FetchExpensesFailureAction
-    | UpdateCommentSuccessAction
-    | UpdateCommentFailureAction
-    | AddReceiptSuccessAction
-    | AddReceiptFailureAction
+  | FetchExpensesSuccessAction
+  | FetchExpensesFailureAction
+  | UpdateCommentSuccessAction
+  | UpdateCommentFailureAction
+  | AddReceiptSuccessAction
+  | AddReceiptFailureAction
