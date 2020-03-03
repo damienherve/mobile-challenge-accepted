@@ -15,12 +15,7 @@ import { Provider } from 'react-redux'
 import { NavigationContainer, StackActions } from '@react-navigation/native'
 import { AppStack } from './Navigation/AppNavigator'
 import 'react-native-gesture-handler'
-import ExpensesListScreen from './UI/Screens/ExpensesListScreen'
-
-// Load Reactotron only in __DEV__ mode
-if (__DEV__) {
-    import('./Config/ReactotronConfig')
-}
+import '@Config/ReactotronConfig'
 
 class App extends Component {
     render() {

@@ -1,13 +1,13 @@
 {
-    "name": "PleoMobileChallenge",
+    "name": "pleo-mobile-challenge",
     "version": "0.0.1",
     "private": true,
     "scripts": {
         "android": "npx react-native run-android",
         "ios": "npx react-native run-ios",
-        "start": "react-native start",
+        "start": "npx react-native start",
         "test": "jest",
-        "lint": "tsc --noEmit && eslint --ext .js,.jsx,.ts,.tsx ./",
+        "lint": "tsc && eslint src/* --ext .js,.jsx,.ts,.tsx ./",
         "prettier:write": "npx prettier --write **/*.{js,jsx,ts,tsx,json} && npx prettier --write *.{js,jsx,ts,tsx,json}"
     },
     "dependencies": {
