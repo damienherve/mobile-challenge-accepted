@@ -3,7 +3,8 @@ import {
     fetchExpenses,
     FetchExpensesResponse,
     updateComment,
-    UpdateCommentResponse
+    UpdatedExpenseResponse,
+    addReceipt
 } from '@APIs/ExpensesApi'
 import * as Actions from './ExpensesActions'
 import * as constants from './constants'
@@ -23,8 +24,21 @@ function* fetchExpensesSaga(action: Actions.FetchExpensesRequestAction) {
 
 function* updateCommentSaga(action: Actions.UpdateCommentRequestAction) {
     try {
-        let response: UpdateCommentResponse = yield call(
+        let response: UpdatedExpenseResponse = yield call(
             updateComment,
+            action.payload.id,
+            action.payload.comment
+        )
+        yield put(Actions.updateCommentSuccess(response.data))
+    } catch (e) {
+        yield put(Actions.updateCommentFailure(e))
+    }
+}
+
+function* addReceiptSaga(action: Actions.AddReceiptRequestAction) {
+    try {
+        let response: UpdatedExpenseResponse = yield call(
+            addReceipt,
             action.payload.id,
             action.payload.comment
         )
@@ -41,4 +55,8 @@ export function* fetchExpensesWatcher() {
 
 export function* updateCommentWatcher() {
     yield takeLatest(constants.UPDATE_COMMENT_REQUEST, updateCommentSaga)
+}
+
+export function* addReceiptWatcher() {
+    yield takeLatest(constants.ADD_RECEIPT_REQUEST, addReceiptSaga)
 }

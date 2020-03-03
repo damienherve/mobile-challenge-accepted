@@ -8,7 +8,7 @@
  * @format
  */
 
-import React, { Component } from 'react'
+import React from 'react'
 import { View, Text } from 'react-native'
 import { store } from '@Config/ReduxConfig'
 import { Provider } from 'react-redux'
@@ -17,7 +17,7 @@ import { AppStack } from './Navigation/AppNavigator'
 import 'react-native-gesture-handler'
 import '@Config/ReactotronConfig'
 
-class App extends Component {
+export default class App extends React.Component {
     render() {
         return (
             <Provider store={store}>
@@ -28,5 +28,3 @@ class App extends Component {
         )
     }
 }
-
-export default App

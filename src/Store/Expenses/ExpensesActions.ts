@@ -1,6 +1,7 @@
 import { Expense } from '../types'
 import { FetchExpensesData } from '../../APIs/ExpensesApi'
 import * as constants from './constants'
+import { Image } from 'react-native'
 
 export interface FetchExpensesRequestAction {
     type: typeof constants.FETCH_EXPENSES_REQUEST
@@ -35,6 +36,24 @@ export interface UpdateCommentSuccessAction {
 
 export interface UpdateCommentFailureAction {
     type: typeof constants.UPDATE_COMMENT_FAILURE
+    errorMessage?: string
+}
+
+export interface AddReceiptRequestAction {
+    type: typeof constants.ADD_RECEIPT_REQUEST
+    payload: {
+        id: string
+        receipt: Image
+    }
+}
+
+export interface AddReceiptSuccessAction {
+    type: typeof constants.ADD_RECEIPT_SUCCESS
+    expense: Expense
+}
+
+export interface AddReceiptFailureAction {
+    type: typeof constants.ADD_RECEIPT_FAILURE
     errorMessage?: string
 }
 
@@ -99,12 +118,41 @@ export function updateCommentFailure(
     }
 }
 
+export function addReceipt(id: string, receipt: Image): ExpensesRequestAction {
+    return {
+        type: constants.ADD_RECEIPT_REQUEST,
+        payload: {
+            id,
+            receipt
+        }
+    }
+}
+
+export function addReceiptSuccess(expense: Expense): ExpensesResponseAction {
+    return {
+        type: constants.ADD_RECEIPT_SUCCESS,
+        expense
+    }
+}
+
+export function addReceiptFailure(
+    errorMessage?: string
+): ExpensesResponseAction {
+    return {
+        type: constants.ADD_RECEIPT_FAILURE,
+        errorMessage
+    }
+}
+
 export type ExpensesRequestAction =
     | FetchExpensesRequestAction
     | UpdateCommentRequestAction
+    | AddReceiptRequestAction
 
 export type ExpensesResponseAction =
     | FetchExpensesSuccessAction
     | FetchExpensesFailureAction
     | UpdateCommentSuccessAction
     | UpdateCommentFailureAction
+    | AddReceiptSuccessAction
+    | AddReceiptFailureAction

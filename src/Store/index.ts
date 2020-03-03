@@ -1,14 +1,19 @@
-import { Action, combineReducers } from 'redux'
+import { combineReducers } from 'redux'
 import { all } from 'redux-saga/effects'
 import {
     fetchExpensesWatcher,
-    updateCommentWatcher
+    updateCommentWatcher,
+    addReceiptWatcher
 } from './Expenses/ExpensesSagas'
 import { expensesReducer } from './Expenses/ExpensesReducers'
 
 // create RootSaga
 export function* rootSaga() {
-    yield all([fetchExpensesWatcher(), updateCommentWatcher()])
+    yield all([
+        fetchExpensesWatcher(),
+        updateCommentWatcher(),
+        addReceiptWatcher()
+    ])
 }
 
 export const rootReducer = combineReducers({

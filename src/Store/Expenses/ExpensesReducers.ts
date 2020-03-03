@@ -19,11 +19,14 @@ export function expensesReducer(
                 data: _.keyBy(expenses, 'id'),
                 total
             })
-        case constants.UPDATE_COMMENT_SUCCESS:
+
+        case constants.UPDATE_COMMENT_SUCCESS || constants.ADD_RECEIPT_SUCCESS:
             return _.merge({}, state, {
-                data: _.keyBy(action.expense, 'id'),
-                total
+                data: {
+                    [action.expense.id]: action.expense
+                }
             })
+
         default:
             return state
     }
