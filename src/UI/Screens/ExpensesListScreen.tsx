@@ -58,10 +58,7 @@ class ExpensesListScreen extends React.Component<
           title="Upload a Receipt"
           onPress={() => {
             const options = {
-              title: 'Select Avatar',
-              customButtons: [
-                { name: 'fb', title: 'Choose Photo from Facebook' }
-              ],
+              title: 'Select Receipt',
               storageOptions: {
                 skipBackup: true,
                 path: 'images'
