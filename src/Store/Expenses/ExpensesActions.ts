@@ -56,11 +56,13 @@ export interface AddReceiptFailureAction {
   errorMessage?: string
 }
 
+export interface UpdateSearchFilterAction {
+  type: typeof constants.UPDATE_SEARCH_FILTER
+  searchFilter: string
+}
+
 // Action Definitions
-export function fetchExpenses(
-  limit?: number,
-  offset?: number
-): ExpensesActionType {
+export function fetchExpenses(limit?: number, offset?: number): ExpensesActionType {
   return {
     type: constants.FETCH_EXPENSES_REQUEST,
     payload: {
@@ -70,18 +72,14 @@ export function fetchExpenses(
   }
 }
 
-export function fetchExpensesSuccess(
-  payload: FetchExpensesData
-): ExpensesActionType {
+export function fetchExpensesSuccess(payload: FetchExpensesData): ExpensesActionType {
   return {
     type: constants.FETCH_EXPENSES_SUCCESS,
     payload
   }
 }
 
-export function fetchExpensesFailure(
-  errorMessage?: string
-): ExpensesActionType {
+export function fetchExpensesFailure(errorMessage?: string): ExpensesActionType {
   return {
     type: constants.FETCH_EXPENSES_FAILURE,
     errorMessage
@@ -105,9 +103,7 @@ export function updateCommentSuccess(expense: Expense): ExpensesActionType {
   }
 }
 
-export function updateCommentFailure(
-  errorMessage?: string
-): ExpensesActionType {
+export function updateCommentFailure(errorMessage?: string): ExpensesActionType {
   return {
     type: constants.UPDATE_COMMENT_FAILURE,
     errorMessage
@@ -138,6 +134,13 @@ export function addReceiptFailure(errorMessage?: string): ExpensesActionType {
   }
 }
 
+export function updateSearchFilter(searchFilter: string): ExpensesActionType {
+  return {
+    type: constants.UPDATE_SEARCH_FILTER,
+    searchFilter
+  }
+}
+
 export type ExpensesActionType =
   | FetchExpensesRequestAction
   | UpdateCommentRequestAction
@@ -148,3 +151,4 @@ export type ExpensesActionType =
   | UpdateCommentFailureAction
   | AddReceiptSuccessAction
   | AddReceiptFailureAction
+  | UpdateSearchFilterAction

@@ -12,10 +12,7 @@ import * as constants from './constants'
 // Workers
 function* fetchExpensesSaga(action: Actions.FetchExpensesRequestAction) {
   try {
-    let response: FetchExpensesResponse = yield call(
-      fetchExpenses,
-      action.payload
-    )
+    let response: FetchExpensesResponse = yield call(fetchExpenses, action.payload)
     yield put(Actions.fetchExpensesSuccess(response.data))
   } catch (e) {
     yield put(Actions.fetchExpensesFailure(e))

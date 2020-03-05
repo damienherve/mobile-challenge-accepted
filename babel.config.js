@@ -11,7 +11,8 @@ module.exports = {
           '@Navigation': './src/Navigation',
           '@Store': './src/Store',
           '@Screens': './src/UI/Screens',
-          '@Components': './src/UI/Components'
+          '@Components': './src/UI/Components',
+          '@Styles': './src/UI/Styles'
         }
       }
     ]

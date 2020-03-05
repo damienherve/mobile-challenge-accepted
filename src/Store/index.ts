@@ -9,11 +9,7 @@ import { expensesReducer } from './Expenses/ExpensesReducers'
 
 // create RootSaga
 export function* rootSaga() {
-  yield all([
-    fetchExpensesWatcher(),
-    updateCommentWatcher(),
-    addReceiptWatcher()
-  ])
+  yield all([fetchExpensesWatcher(), updateCommentWatcher(), addReceiptWatcher()])
 }
 
 export const rootReducer = combineReducers({

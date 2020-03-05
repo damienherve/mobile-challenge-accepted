@@ -31,13 +31,16 @@ interface Expenses {
   [key: string]: Expense
 }
 
+export interface ExpensesUI {
+  total: number
+  isFetching: boolean
+  isUpdating: boolean
+  isUploading: boolean
+  errorMessage: string
+  searchFilter: string
+}
+
 export type ExpensesState = {
   data: Expenses
-  ui: {
-    isFetching: boolean
-    isUpdating: boolean
-    isUploading: boolean
-    errorMessage: string
-  }
-  total: number
+  ui: ExpensesUI
 }
