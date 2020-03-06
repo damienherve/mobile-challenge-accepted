@@ -30,10 +30,21 @@ export const getFilteredExpensesByUser = createSelector(
   }
 )
 
+export const getFilteredExpensesByAmount = createSelector(
+  getExpenses,
+  getExpensesUI,
+  (expenses, expensesUI) => {
+    return expenses.filter(expense => {
+      return expense.amount.value.toString().indexOf(expensesUI.searchFilter) > -1
+    })
+  }
+)
+
 export const getFilteredExpenses = createSelector(
   getFilteredExpensesByMerchant,
   getFilteredExpensesByUser,
-  (expensesByMerchant, expensesByUser) => {
-    return _.union(expensesByMerchant, expensesByUser)
+  getFilteredExpensesByAmount,
+  (expensesByMerchant, expensesByUser, expensesByAmount) => {
+    return _.union(expensesByMerchant, expensesByUser, expensesByAmount)
   }
 )
