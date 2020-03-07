@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { call, put, takeLatest, select } from 'redux-saga/effects'
 import {
   fetchExpenses,
   FetchExpensesResponse,
@@ -8,11 +8,20 @@ import {
 } from '@APIs/ExpensesApi'
 import * as Actions from './ExpensesActions'
 import * as constants from './constants'
+import { StoreState } from '@Store'
 
 // Workers
+
+// Fetch 20 more expenses
 function* fetchExpensesSaga(action: Actions.FetchExpensesRequestAction) {
   try {
-    let response: FetchExpensesResponse = yield call(fetchExpenses, action.payload)
+    const state: StoreState = yield select()
+    const payload = {
+      limit: 20,
+      offset: Object.keys(state.expenses.data).length
+    }
+    console.log('payload', payload)
+    let response: FetchExpensesResponse = yield call(fetchExpenses, payload)
     yield put(Actions.fetchExpensesSuccess(response.data))
   } catch (e) {
     yield put(Actions.fetchExpensesFailure(e))

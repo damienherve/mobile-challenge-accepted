@@ -9,8 +9,8 @@ export default class ListItem extends React.Component<ListItemProps> {
     return (
       <RNEListItem
         Component={TouchableScale}
-        friction={90} //
-        tension={100} // These props are passed to the parent component (here TouchableScale)
+        friction={90}
+        tension={100}
         activeScale={0.95}
         leftAvatar={<Icon name="user-circle-o" type="font-awesome" color={Colors.pink} size={40} />}
         titleStyle={{ color: Colors.mainTextColor, fontSize: 18, fontWeight: '300' }}

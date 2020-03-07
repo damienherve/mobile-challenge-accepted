@@ -1,5 +1,12 @@
 import React, { Dispatch } from 'react'
-import { View, ListRenderItem, ActivityIndicator } from 'react-native'
+import {
+  View,
+  ListRenderItem,
+  ActivityIndicator,
+  SectionList,
+  SectionListData,
+  Text
+} from 'react-native'
 import { Expense, ExpensesUI } from '@Store/types'
 import { StoreState } from '@Store'
 import * as actions from '@Store/Expenses/ExpensesActions'
@@ -10,50 +17,30 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { SearchBar } from 'react-native-elements'
 import Colors from '@Styles/Colors'
 import {
-  getExpenses,
-  getFilteredExpenses,
   getExpensesUI,
-  canFetchMoreExpenses
+  canFetchMoreExpenses,
+  getFilteredExpensesByDate,
+  ExpensesByDate
 } from '@Store/Expenses/ExpensesSelectors'
 
 export interface ExpensesListScreenProps {
-  filteredExpenses?: Expense[]
+  filteredExpenses?: ExpensesByDate[]
   ui?: ExpensesUI
   canFetchMoreExpenses: boolean
-  fetchExpenses?: (limit: number, offset: number) => void
+  fetchExpenses?: () => void
   updateComment?: (id: string, comment: string) => void
   addReceipt?: (id: string, receiptUri: string) => void
   updateSearchFilter?: (searchFilter: string) => void
 }
 
-interface ExpensesListScreenState {
-  offset: number
-}
-
-class ExpensesListScreen extends React.Component<ExpensesListScreenProps, ExpensesListScreenState> {
-  // Initial state
-  state: Readonly<ExpensesListScreenState> = {
-    offset: 0
-  }
-
+class ExpensesListScreen extends React.Component<ExpensesListScreenProps> {
   componentDidMount() {
     this._loadMoreExpenses()
   }
 
-  componentDidUpdate(prevProps: ExpensesListScreenProps) {
-    if (prevProps.filteredExpenses !== this.props.filteredExpenses) {
-      this.setState({
-        offset: this.props.filteredExpenses.length
-      })
-    }
-  }
-
   _loadMoreExpenses = () => {
-    const nbExpenses = this.props.filteredExpenses.length
-    const totalExpenses = this.props.ui.total
-    if (this.props.ui.isFetching) return
-    if (this.state.offset == 0 || nbExpenses != totalExpenses) {
-      this.props.fetchExpenses(10, this.state.offset)
+    if (this.props.canFetchMoreExpenses) {
+      this.props.fetchExpenses()
     }
   }
 
@@ -71,6 +58,12 @@ class ExpensesListScreen extends React.Component<ExpensesListScreenProps, Expens
     />
   )
 
+  _renderSectionHeader = ({ section }) => (
+    <View style={{ padding: 8, backgroundColor: 'white' }}>
+      <Text style={{ color: 'black' }}>{section.title.toUpperCase()}</Text>
+    </View>
+  )
+
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: Colors.background }}>
@@ -83,10 +76,11 @@ class ExpensesListScreen extends React.Component<ExpensesListScreenProps, Expens
           lightTheme
           containerStyle={{ backgroundColor: 'transparent' }}
         />
-        <FlatList<Expense>
+        <SectionList<Expense>
+          sections={this.props.filteredExpenses}
           contentContainerStyle={{ paddingBottom: 30 }}
           keyExtractor={(item, index) => item.id}
-          data={this.props.filteredExpenses}
+          renderSectionHeader={this._renderSectionHeader}
           renderItem={this._renderItem}
           onEndReachedThreshold={0.01}
           onMomentumScrollEnd={() => {
@@ -101,7 +95,7 @@ class ExpensesListScreen extends React.Component<ExpensesListScreenProps, Expens
 
 export function mapStateToProps(state: StoreState) {
   return {
-    filteredExpenses: getFilteredExpenses(state.expenses),
+    filteredExpenses: getFilteredExpensesByDate(state.expenses),
     ui: getExpensesUI(state.expenses),
     canFetchMoreExpenses: canFetchMoreExpenses(state.expenses)
   }
@@ -109,7 +103,7 @@ export function mapStateToProps(state: StoreState) {
 
 export function mapDispatchToProps(dispatch: Dispatch<actions.ExpensesActionType>) {
   return {
-    fetchExpenses: (limit, offset) => dispatch(actions.fetchExpenses(limit, offset)),
+    fetchExpenses: () => dispatch(actions.fetchExpenses()),
     updateComment: (id, comment) => dispatch(actions.updateComment(id, comment)),
     addReceipt: (id: string, receiptUri: string) => dispatch(actions.addReceipt(id, receiptUri)),
     updateSearchFilter: (searchFilter: string) => dispatch(actions.updateSearchFilter(searchFilter))

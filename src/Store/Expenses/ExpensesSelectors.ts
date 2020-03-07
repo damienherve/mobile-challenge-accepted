@@ -1,13 +1,17 @@
 import { createSelector } from 'reselect'
-import { ExpensesState } from '../types'
+import { ExpensesState, Expense } from '../types'
 import _ from 'lodash'
 
 export const getExpenses = (state: ExpensesState) => Object.values(state.data)
 
 export const getExpensesUI = (state: ExpensesState) => state.ui
 
-export const canFetchMoreExpenses = (state: ExpensesState) =>
-  getExpenses(state).length < state.ui.total
+export const canFetchMoreExpenses = (state: ExpensesState) => {
+  const totalFetchedExpenses = getExpenses(state).length
+  const canFetchMore = totalFetchedExpenses == 0 || totalFetchedExpenses < state.ui.total
+  const isNotFetching = !state.ui.isFetching
+  return canFetchMore && isNotFetching
+}
 
 export const getFilteredExpensesByMerchant = createSelector(
   getExpenses,
@@ -40,6 +44,7 @@ export const getFilteredExpensesByAmount = createSelector(
   }
 )
 
+// Here we compose selectors to make a 'super filter' selector
 export const getFilteredExpenses = createSelector(
   getFilteredExpensesByMerchant,
   getFilteredExpensesByUser,
@@ -48,3 +53,25 @@ export const getFilteredExpenses = createSelector(
     return _.union(expensesByMerchant, expensesByUser, expensesByAmount)
   }
 )
+
+export interface ExpensesByDate {
+  title: string
+  data: Expense[]
+}
+export const getFilteredExpensesByDate = createSelector(getFilteredExpenses, expenses => {
+  const expensesByDate = _.groupBy(expenses, e => new Date(e.date).toLocaleDateString())
+  const bla: ExpensesByDate[] = []
+  const test = _.reduce(
+    expensesByDate,
+    (acc, next, index) => {
+      acc.push({
+        title: index,
+        data: next
+      })
+      return acc
+    },
+    bla
+  )
+  console.log('TEST', test)
+  return test
+})
