@@ -15,27 +15,19 @@ export type FetchExpensesData = {
 export type FetchExpensesResponse = AxiosResponse<FetchExpensesData>
 export type UpdatedExpenseResponse = AxiosResponse<Expense>
 
-export function fetchExpenses(
-  payload: FetchExpensesParams
-): Promise<FetchExpensesResponse> {
+export function fetchExpenses(payload: FetchExpensesParams): Promise<FetchExpensesResponse> {
   return Axios.get('/expenses', {
     params: payload
   })
 }
 
-export function updateComment(
-  id: string,
-  comment: string
-): Promise<UpdatedExpenseResponse> {
+export function updateComment(id: string, comment: string): Promise<UpdatedExpenseResponse> {
   return Axios.post('/expenses/' + id, {
     comment
   })
 }
 
-export function addReceipt(
-  id: string,
-  receiptUri: string
-): Promise<UpdatedExpenseResponse> {
+export function addReceipt(id: string, receiptUri: string): Promise<UpdatedExpenseResponse> {
   const formData = new FormData()
   formData.append('receipt', {
     uri: receiptUri,

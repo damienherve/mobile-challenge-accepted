@@ -6,9 +6,9 @@ import ExpensesListScreen from '@Screens/ExpensesListScreen'
 const RootStack = createStackNavigator<RootStackParams>()
 
 export function AppStack() {
-    return (
-        <RootStack.Navigator>
-            <RootStack.Screen name="Expenses" component={ExpensesListScreen} />
-        </RootStack.Navigator>
-    )
+  return (
+    <RootStack.Navigator>
+      <RootStack.Screen name="Expenses" component={ExpensesListScreen} />
+    </RootStack.Navigator>
+  )
 }
