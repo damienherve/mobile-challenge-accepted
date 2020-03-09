@@ -4,10 +4,10 @@ import {
   ListRenderItem,
   ActivityIndicator,
   SectionList,
-  SectionListData,
-  Text
+  Text,
+  StyleSheet
 } from 'react-native'
-import { Expense, ExpensesUI } from '@Store/types'
+import { Expense, ExpensesUI, ExpensesByDate } from '@Store/types'
 import { StoreState } from '@Store'
 import * as actions from '@Store/Expenses/ExpensesActions'
 import { connect } from 'react-redux'
@@ -19,8 +19,7 @@ import Colors from '@Styles/Colors'
 import {
   getExpensesUI,
   canFetchMoreExpenses,
-  getFilteredExpensesByDate,
-  ExpensesByDate
+  getFilteredExpensesByDate
 } from '@Store/Expenses/ExpensesSelectors'
 
 export interface ExpensesListScreenProps {
@@ -73,12 +72,16 @@ class ExpensesListScreen extends React.Component<ExpensesListScreenProps> {
             this.props.updateSearchFilter(search)
           }}
           value={this.props.ui.searchFilter}
-          lightTheme
-          containerStyle={{ backgroundColor: 'transparent' }}
+          inputContainerStyle={{ backgroundColor: Colors.searchBar }}
+          containerStyle={{
+            backgroundColor: 'transparent',
+            borderBottomColor: 'transparent',
+            borderTopColor: 'transparent'
+          }}
+          style={{ backgroundColor: 'red' }}
         />
         <SectionList<Expense>
           sections={this.props.filteredExpenses}
-          contentContainerStyle={{ paddingBottom: 30 }}
           keyExtractor={(item, index) => item.id}
           renderSectionHeader={this._renderSectionHeader}
           renderItem={this._renderItem}
@@ -111,3 +114,5 @@ export function mapDispatchToProps(dispatch: Dispatch<actions.ExpensesActionType
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpensesListScreen)
+
+const styles = StyleSheet.create({})

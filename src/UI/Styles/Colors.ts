@@ -3,5 +3,6 @@ export default {
   pink: '#FEDEE2',
   yellow: '#F9EFAF',
   mainTextColor: '#000',
-  secTextColor: '#AAA'
+  secTextColor: '#AAA',
+  searchBar: '#EEE'
 }

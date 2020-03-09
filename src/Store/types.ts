@@ -40,6 +40,11 @@ export interface ExpensesUI {
   searchFilter: string
 }
 
+export interface ExpensesByDate {
+  title: string
+  data: Expense[]
+}
+
 export type ExpensesState = {
   data: Expenses
   ui: ExpensesUI

@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect'
-import { ExpensesState, Expense } from '../types'
+import { ExpensesState, ExpensesByDate } from '../types'
 import _ from 'lodash'
 
 export const getExpenses = (state: ExpensesState) => Object.values(state.data)
@@ -54,14 +54,10 @@ export const getFilteredExpenses = createSelector(
   }
 )
 
-export interface ExpensesByDate {
-  title: string
-  data: Expense[]
-}
 export const getFilteredExpensesByDate = createSelector(getFilteredExpenses, expenses => {
   const expensesByDate = _.groupBy(expenses, e => new Date(e.date).toLocaleDateString())
-  const bla: ExpensesByDate[] = []
-  const test = _.reduce(
+  const output: ExpensesByDate[] = []
+  return _.reduce(
     expensesByDate,
     (acc, next, index) => {
       acc.push({
@@ -70,8 +66,6 @@ export const getFilteredExpensesByDate = createSelector(getFilteredExpenses, exp
       })
       return acc
     },
-    bla
+    output
   )
-  console.log('TEST', test)
-  return test
 })
